@@ -4,7 +4,7 @@ import React from 'react';
 export default function OnboardingScreen() {
   return (
     <View>
-      <Text>OnboardingScreen</Text>
+      <Text>OnboardingScreen 1</Text>
     </View>
   );
 }
