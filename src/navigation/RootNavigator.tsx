@@ -27,9 +27,15 @@ export type AuthStackParamList = {
   Signup: undefined;
 };
 
+export type MainTabParamList = {
+  HomeTab: undefined;
+  CompletedTab: undefined;
+  SettingsTab: undefined;
+};
+
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const AuthNavigator = () => (
   <AuthStack.Navigator>
@@ -41,7 +47,7 @@ const AuthNavigator = () => (
     <AuthStack.Screen
       name="Signup"
       component={SignupScreen}
-      options={{ title: 'Create account' }}
+      options={{ headerShown: false }}
     />
   </AuthStack.Navigator>
 );
@@ -85,7 +91,6 @@ const RootNavigator: React.FC = () => {
       <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
       <RootStack.Screen name="Auth" component={AuthNavigator} />
       <RootStack.Screen name="Main" component={MainTabs} />
-      {/* FAB se open hone wali stack screen */}
       <RootStack.Screen
         name="AddEditTask"
         component={AddEditTaskScreen}

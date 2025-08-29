@@ -1,22 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { initDB } from './src/database/sqlite';
+import { getCurrentUser } from './src/database/db';
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation/RootNavigator';
 import { ThemeBridge, makeTheme } from './src/theme';
 import { useColorScheme } from 'react-native';
 
-const App = () => {
-  // manual theme toggle (SQLite me persist next step me)
-  const [darkOverride, setDarkOverride] = useState<boolean | null>(null);
+const AppInner = () => {
   const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
-  const { nav } = makeTheme(darkOverride, scheme);
+  const { nav } = makeTheme(scheme);
+
+  useEffect(() => {
+    initDB();
+  }, []);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const user = await getCurrentUser();
+      console.log('Current Session User:', user);
+    };
+    checkSession();
+  }, []);
 
   return (
-    <ThemeBridge override={darkOverride}>
-      <NavigationContainer theme={nav}>
-        <RootNavigator />
-      </NavigationContainer>
-    </ThemeBridge>
+    <NavigationContainer theme={nav}>
+      <RootNavigator />
+    </NavigationContainer>
   );
 };
+
+const App = () => (
+  <ThemeBridge>
+    <AppInner />
+  </ThemeBridge>
+);
 
 export default App;

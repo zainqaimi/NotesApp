@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 
-export default function CompletedTab() {
+const CompletedTab: React.FC = () => {
   return (
-    <View>
-      <Text>CompletedTab</Text>
+    <View style={{ flex: 1, padding: 16 }}>
+      <Text variant="titleLarge">Completed</Text>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({});
+export default CompletedTab;
